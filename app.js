@@ -23,7 +23,7 @@ app.post('/',( req,res) => {
 
 // get single book 
 
-app.get('/:id',(req,res) => {
+app.get('/books/:id',(req,res) => {
     const newBook = books.filter((book) => book.id === req.params.id);
     res.send(newBook)
 })
