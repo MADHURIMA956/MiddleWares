@@ -39,7 +39,7 @@ app.post('/',auth("name"),( req,res) => {
 // get single book 
 
 app.get('/books/:id',(req,res) => {
-    const newBook = books.filter((book) => book.id === req.params.id);
+    const newBook = books.filter((book) => book.id == req.params.id);
     res.send(newBook)
 })
 
@@ -49,7 +49,7 @@ app.patch('/books/:id' , (req,res) => {
 
     const newBook = books.map((book) => {
          
-        if(req.params.id === book.id){
+        if(req.params.id == book.id){
             if( req?.body?.id )book.id = req.body.id;
             if( req?.body?.book_name )book.book_name = req.body.book_name;
             if( req?.body?.page_no )book.page_no = req.body.page_no;
