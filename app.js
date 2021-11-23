@@ -6,6 +6,18 @@ const app = express();
 
 app.use(express.json());
 
+const auth = (name) =>{
+    return (req,res,next) => {
+        const originalSendFunc = res.send.bind(res);
+        res.send = function(body){
+            body.name = "Nrupul Dev"
+            console.log(body);
+            return originalSendFunc(body)
+        };
+        next();
+    };
+};
+
 // get 
 
 app.get('/books',( req , res) => {
@@ -13,13 +25,16 @@ app.get('/books',( req , res) => {
     res.send( {books});
 });
 
-// post
+// post / middle ware
 
-app.post('/',( req,res) => {
+app.post('/',auth("name"),( req,res) => {
     const newBook = [ ...books,req.body];
 
-    res.send(newBook)
+    res.send(({name : "DHAVAL CHEDDA"}))
 })
+
+
+
 
 // get single book 
 
@@ -30,7 +45,7 @@ app.get('/books/:id',(req,res) => {
 
 // patch
 
-app.patch('/:id' , (req,res) => {
+app.patch('/books/:id' , (req,res) => {
 
     const newBook = books.map((book) => {
          
@@ -45,6 +60,12 @@ app.patch('/:id' , (req,res) => {
       res.send(newBook);
 })
 
+// delete
+
+app.delete( '/books/:id' , (res,req) => {
+    const newBook = books.filter((book) => book.id !== req.params.id);
+    res.send(newBook)
+})
 
 app.listen(2345, function(){
     console.log('Listenning on port 2345')
