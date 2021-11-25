@@ -27,10 +27,12 @@ app.get('/books',( req , res) => {
 
 // post / middle ware
 
-app.post('/',auth("name"),( req,res) => {
+app.post('/books',auth("name"),( req,res) => {
     const newBook = [ ...books,req.body];
-
+    res.send(newBook);
     res.send(({name : "DHAVAL CHEDDA"}))
+  
+    
 })
 
 
@@ -62,13 +64,14 @@ app.patch('/books/:id' , (req,res) => {
 
 // delete
 
-app.delete('/books/:id',(res,req) => {
+app.delete('/books/:id',(req,res) => {
+    const idd = req.params.id 
 
-    const newBook = books.filter((book) => book.id != req.params.id );
+    const newBook = books.filter((book) => book.id != idd );
     res.send(newBook);
 
 });
 
-app.listen(2345, function(){
-    console.log('Listenning on port 2345')
+app.listen(2005, function(){
+    console.log('Listenning on port 2005')
 })
