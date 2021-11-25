@@ -62,10 +62,12 @@ app.patch('/books/:id' , (req,res) => {
 
 // delete
 
-app.delete( '/books/:id' , (res,req) => {
-    const newBook = books.filter((book) => book.id !== req.params.id);
-    res.send(newBook)
-})
+app.delete('/books/:id',(res,req) => {
+
+    const newBook = books.filter((book) => book.id != req.params.id );
+    res.send(newBook);
+
+});
 
 app.listen(2345, function(){
     console.log('Listenning on port 2345')
